@@ -1,5 +1,5 @@
 import urllib.request, json, os,time,pika
-import requests
+import requests, random
 cred_file="cred.txt"
 def _cred(s,u,p,c):
     fh=open(cred_file,"a",encoding="utf-8")
@@ -30,27 +30,29 @@ def service_check(pip):
                 'lang':'ru',\
 'last_name':'Пещерская',
 'first_name':'Валерия',\
-'email':'peshvarl20012@yandex.ru'\
+'email':'peshvarl20012@yandex.ru',\
 'password':'Aa1234561',\
 'gmt_timezone':'+03:00',\
 'country':'RU',\
-'phone''+7975458552',\
+'phone':'+7975458552',\
 'currency_code':'EUR',\
 'campaign_code':'',\
 'urlParams=lang':'ru',\
 'reg_from_web':'Website',\
 'emailLang':'ru'}
+            d1['fingerprint']=str(random.getrandbits(128))
 #            d1={'_wpcf7':'5','_wpcf7_version':'5.3.2','_wpcf7_locale':'ru_RU','_wpcf7_unit_tag':'wpcf7-f5-o1','_wpcf7_container_post':'0','your-name':data["final_name"],'email-730':data["email"],'menu-326':'Россия','tel-163':data["phone_full"],'menu-48':'Открытие счёта','your-message':data["phrase"]}
             print(d1)    
             try:
                 r1 = requests.post('https://trade.sm24online.com/api/users/trading-platform/register',data=d1,proxies=proxies, timeout=15)
                 print (r1.text)
                 print (r1.status_code)
-                print ("maxi reg")
-                if ('mail_sent' in r1.text):
-                    good_proxy=1
-                else:
-                    good_proxy=0
+                print ("st24 reg")
+
+#                if ('mail_sent' in r1.text):
+#                    good_proxy=1
+#                else:
+#                    good_proxy=0
             except Exception as e:
                 print (e)
                 good_proxy=0
